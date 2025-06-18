@@ -1,3 +1,5 @@
+CREATE EXTENSION postgis;
+
 CREATE TABLE earthquake (
 	"Date" VARCHAR,
 	"Time" VARCHAR,
@@ -15,7 +17,7 @@ CREATE TABLE earthquake (
 	"Horizontal Distance" FLOAT,
 	"Horizontal Error" FLOAT,
 	"Root Mean Square" FLOAT,
-	id VARCHAR PRIMARY KEY,
+	"id" VARCHAR PRIMARY KEY,
 	"Source" VARCHAR,
 	"Location Source" VARCHAR,
 	"Magnitude Source" VARCHAR,
@@ -29,3 +31,38 @@ CREATE TABLE tectonic_plates (
     platename VARCHAR,
     geometry GEOMETRY(Polygon, 4326)
 );
+
+COPY earthquake (
+	"Date",
+	"Time",
+	"Latitude",
+	"Longitude",
+	"Type",
+	"Depth",
+	"Depth Error",
+	"Depth Seismic Stations",
+	"Magnitude",
+	"Magnitude Type",
+	"Magnitude Error",
+	"Magnitude Seismic Stations",
+	"Azimuthal Gap",
+	"Horizontal Distance",
+	"Horizontal Error",
+	"Root Mean Square",
+	"id",
+	"Source",
+	"Location Source",
+	"Magnitude Source",
+	"Status"
+) FROM '/var/csv/earthquake.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY tectonic_plates (
+	layer,
+	code,
+	platename,
+	geometry
+) FROM '/var/csv/transformed_tectonic_plate.csv'
+DELIMITER ','
+CSV HEADER;
