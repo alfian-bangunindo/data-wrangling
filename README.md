@@ -16,6 +16,6 @@
     ```bash
     docker comopse up -d
     ```
-    This will create a PostgreSQL database instance, initialize the tables, and insert the data using the SQL files inside the `sql` folder.
+    This will create a PostgreSQL database instance with PostGIS extension, initialize the tables, and insert the data using the SQL files inside the `sql` folder.
 
 2. Connect to the database in DBeaver and run the data wrangling query from `sql/2-wrangling.sql`
